@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Programs Display</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        h2 {
+            color: #005f73;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+        pre {
+            background-color: #e0f7fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Java Programs Showcase</h1>
+
+    <h2>1. Stack (Shortened)</h2>
+    <pre>
+import java.util.*;
+
+class Stack {
+    int top = -1, max = 10, arr[] = new int[max];
+    boolean push(int val) {
+        if (top == max - 1) return false;
+        arr[++top] = val; return true;
+    }
+    boolean pop() {
+        if (top == -1) return false;
+        top--; return true;
+    }
+    void display() {
+        for (int i = top; i >= 0; i--) System.out.println(arr[i]);
+    }
+}
+
+public class Stack_Operations {
+    public static void main(String[] a) {
+        Scanner sc = new Scanner(System.in); Stack s = new Stack();
+        while (true) {
+            System.out.println("1.Push 2.Pop 3.Show 4.Exit"); int c = sc.nextInt();
+            switch (c) {
+                case 1 -> { System.out.print("Val: "); s.push(sc.nextInt()); }
+                case 2 -> s.pop();
+                case 3 -> s.display();
+                case 4 -> System.exit(0);
+            }
+        }
+    }
+}
+    </pre>
+
+    <h2>2. Queue (Shortened)</h2>
+    <pre>
+import java.util.*;
+
+class Queue {
+    int q[], front = -1, rear = -1, size;
+    Queue(int n) { q = new int[size = n]; }
+    void insert(int x) {
+        if (rear == size - 1) throw new RuntimeException("Overflow");
+        if (front == -1) front = 0; q[++rear] = x;
+    }
+    int remove() {
+        if (front == -1) throw new RuntimeException("Underflow");
+        int x = q[front];
+        if (front == rear) front = rear = -1;
+        else front++; return x;
+    }
+    int peek() { return q[front]; }
+    boolean isEmpty() { return front == -1; }
+    boolean isFull() { return rear == size - 1; }
+    int getSize() { return rear - front + 1; }
+    void display() {
+        for (int i = front; i <= rear; i++) System.out.print(q[i] + " ");
+        System.out.println();
+    }
+}
+
+public class QueueImplement {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Queue q = new Queue(sc.nextInt());
+        while (true) {
+            System.out.println("1.insert 2.remove 3.peek 4.empty 5.full 6.size");
+            switch (sc.nextInt()) {
+                case 1 -> q.insert(sc.nextInt());
+                case 2 -> System.out.println(q.remove());
+                case 3 -> System.out.println(q.peek());
+                case 4 -> System.out.println(q.isEmpty());
+                case 5 -> System.out.println(q.isFull());
+                case 6 -> System.out.println(q.getSize());
+            }
+            q.display(); if (!sc.next().equalsIgnoreCase("y")) break;
+        }
+    }
+}
+    </pre>
+
+    <h2>3. Singly Linked List (Shortened)</h2>
+    <pre>
+import java.util.*;
+
+class Node {
+    int data; Node next;
+    Node(int d) { data = d; }
+}
+
+class LinkedList {
+    Node head;
+    void insertStart(int d) { Node n = new Node(d); n.next = head; head = n; }
+    void insertEnd(int d) {
+        Node n = new Node(d), t = head;
+        if (head == null) { head = n; return; }
+        while (t.next != null) t = t.next; t.next = n;
+    }
+    void deleteAt(int pos) {
+        if (pos == 1) { head = head.next; return; }
+        Node t = head;
+        for (int i = 1; i < pos - 1 && t != null; i++) t = t.next;
+        if (t != null && t.next != null) t.next = t.next.next;
+    }
+    void display() {
+        for (Node t = head; t != null; t = t.next) System.out.print(t.data + " -> ");
+        System.out.println("null");
+    }
+}
+
+public class SinglyLinkedList {
+    public static void main(String[] a) {
+        Scanner sc = new Scanner(System.in); LinkedList l = new LinkedList();
+        while (true) {
+            System.out.println("1.Start 2.End 3.Delete 4.Exit"); int c = sc.nextInt();
+            switch (c) {
+                case 1 -> l.insertStart(sc.nextInt());
+                case 2 -> l.insertEnd(sc.nextInt());
+                case 3 -> l.deleteAt(sc.nextInt());
+                case 4 -> System.exit(0);
+            }
+            l.display();
+        }
+    }
+}
+    </pre>
+
+    <h2>4. TreeSet</h2>
+    <pre>
+import java.util.*;
+
+public class TreeSetTest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in); TreeSet<String> ts = new TreeSet<>();
+        while (true) {
+            System.out.println("1.add 2.remove 3.contains 4.size 5.clear 6.exit");
+            switch (sc.nextInt()) {
+                case 1 -> ts.add(sc.next());
+                case 2 -> ts.remove(sc.next());
+                case 3 -> System.out.println(ts.contains(sc.next()));
+                case 4 -> System.out.println(ts.size());
+                case 5 -> ts.clear();
+                case 6 -> System.exit(0);
+            }
+            System.out.println(ts);
+        }
+    }
+}
+    </pre>
+
+    <h2>5. HashMap</h2>
+    <pre>
+import java.util.*;
+
+public class HashMapImpl {
+    public static void main(String[] a) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(1, 100); map.put(2, 200); map.put(3, 300);
+        map.putAll(Map.of(4, 400, 5, 500));
+        System.out.println("Keys: " + map.keySet());
+        System.out.println("Values: " + map.values());
+        System.out.println("Entries: " + map.entrySet());
+        System.out.println("Contains key 3: " + map.containsKey(3));
+        System.out.println("Contains value 600: " + map.containsValue(600));
+        System.out.println("Size: " + map.size());
+        map.clear();
+        System.out.println("Map is empty: " + map.isEmpty());
+    }
+}
+        </pre>
+
+    <h2>6. Bi-Directional Map</h2>
+    <pre>
+import java.util.*;
+
+class BiMap {
+    Map<String, String> f = new HashMap<>(), r = new HashMap<>();
+    void put(String k, String v) { f.put(k, v); r.put(v, k); }
+    String get(String k) { return f.getOrDefault(k, r.get(k)); }
+    void remove(String k) {
+        if (f.containsKey(k)) { r.remove(f.remove(k)); }
+        else if (r.containsKey(k)) { f.remove(r.remove(k)); }
+    }
+    void clear() { f.clear(); r.clear(); }
+    int size() { return f.size(); }
+}
+
+public class BiDirectionalMapTest {
+    public static void main(String[] a) {
+        Scanner sc = new Scanner(System.in); BiMap b = new BiMap();
+        while (true) {
+            System.out.println("1.put 2.get 3.remove 4.clear 5.size 6.exit");
+            switch (sc.nextInt()) {
+                case 1 -> b.put(sc.next(), sc.next());
+                case 2 -> System.out.println(b.get(sc.next()));
+                case 3 -> b.remove(sc.next());
+                case 4 -> b.clear();
+                case 5 -> System.out.println(b.size());
+                case 6 -> System.exit(0);
+            }
+        }
+    }
+}
+    </pre>
+      <h2>word count<h/2>
+        <pre>
+          package PackageDemo;
+
+import java.io.IOException;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+
+public class WordCount {
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        String[] paths = new GenericOptionsParser(conf, args).getRemainingArgs();
+        
+        if (paths.length < 2) {
+            System.err.println("Usage: WordCount <input path> <output path>");
+            System.exit(-1);
+        }
+        
+        Job job = Job.getInstance(conf, "WordCount");
+        job.setJarByClass(WordCount.class);
+        job.setMapperClass(MapForWordCount.class);
+        job.setReducerClass(ReduceForWordCount.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+        
+        FileInputFormat.addInputPath(job, new Path(paths[0]));
+        FileOutputFormat.setOutputPath(job, new Path(paths[1]));
+        
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+
+    public static class MapForWordCount extends Mapper<LongWritable, Text, Text, IntWritable> {
+        private final static IntWritable one = new IntWritable(1);
+        private final Text wordText = new Text();
+        
+        @Override
+        public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+            for (String word : value.toString().split(",")) {
+                wordText.set(word.trim().toUpperCase());
+                context.write(wordText, one);
+            }
+        }
+    }
+
+    public static class ReduceForWordCount extends Reducer<Text, IntWritable, Text, IntWritable> {
+        @Override
+        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+            int sum = 0;
+            for (IntWritable val : values) {
+                sum += val.get();
+            }
+            context.write(key, new IntWritable(sum));
+        }
+    }
+}
+        </pre>
+
+</body>
+    </html>
